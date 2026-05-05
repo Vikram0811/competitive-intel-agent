@@ -47,8 +47,7 @@ LAYER 2 - SERVICE
         ▼
 LAYER 3 - ORCHESTRATION
   LangGraph Agent
-  agent → should_continue → tools → agent (loop)
-                          → report → END
+  agent → should_continue → tools → agent (loop) → report → END
         │
         ▼
 LAYER 4 - INFRASTRUCTURE
