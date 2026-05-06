@@ -181,6 +181,13 @@ competitive-intel-agent/
 
 ---
 
+## Documentation
+
+- [Workflow Walkthrough](docs/WORKFLOW.md) - step-by-step trace from company input to generated report
+- [Component Reference](docs/COMPONENTS.md) - detailed explanation of every system component
+
+---
+
 ## Related Project
 
 This is the second in a series of Agentic AI side projects. See also:
