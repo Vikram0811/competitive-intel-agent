@@ -12,4 +12,4 @@ if __name__ == "__main__":
     demo = create_gradio_ui(report_service)
 
     print("Launching UI at http://127.0.0.1:7860")
-    demo.launch()
+    demo.launch(server_name="0.0.0.0")
