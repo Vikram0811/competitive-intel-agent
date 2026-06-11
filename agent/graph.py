@@ -48,7 +48,7 @@ def create_agent_graph():
 
     graph.add_node("agent",  agent_node)
     graph.add_node("tools",  tool_node)
-    graph.add_node("report", report_node)
+    graph.add_node("generate_report", report_node)
 
     # Entry point
     graph.set_entry_point("agent")
@@ -58,8 +58,8 @@ def create_agent_graph():
         "agent",
         should_continue,
         {
-            "tools":  "tools",
-            "report": "report",
+            "tools":          "tools",
+            "generate_report": "generate_report",
         }
     )
 
@@ -67,6 +67,6 @@ def create_agent_graph():
     graph.add_edge("tools", "agent")
 
     # After report — done
-    graph.add_edge("report", END)
+    graph.add_edge("generate_report", END)
 
     return graph.compile()

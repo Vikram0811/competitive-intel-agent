@@ -64,4 +64,4 @@ def should_continue(state: dict) -> str:
     if hasattr(last_message, "tool_calls") and last_message.tool_calls:
         return "tools"
 
-    return "report"
+    return "generate_report"
