@@ -16,6 +16,8 @@ pinned: false
 
 Enter a company name. The agent searches the web, reads results, validates findings, and writes a structured markdown report - no documents to upload, no vector database, pure agentic tool use.
 
+**Live Demo:** [huggingface.co/spaces/Vikram0811/competitive-intel-agent](https://huggingface.co/spaces/Vikram0811/competitive-intel-agent)
+
 ---
 
 ## What Makes This Agentic
