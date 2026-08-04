@@ -4,6 +4,7 @@ Orchestrates the agent and handles saving the report.
 """
 import os
 import uuid
+from core import observability as obs
 from pathlib import Path
 from datetime import datetime
 from langchain_core.messages import HumanMessage
@@ -47,7 +48,13 @@ class ReportService:
             if progress_callback:
                 progress_callback(0.3, "Searching the web...")
 
-            result = self._graph.invoke(initial_state, config_dict)
+            request_id = uuid.uuid4().hex
+            with obs.trace(
+                "generate_report",
+                metadata={"company_name": company_name, "request_id": request_id},
+                trace_id=request_id,
+            ):
+                result = self._graph.invoke(initial_state, config_dict)
 
             if progress_callback:
                 progress_callback(0.8, "Generating report...")

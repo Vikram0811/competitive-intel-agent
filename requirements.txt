@@ -8,3 +8,5 @@ langgraph-checkpoint==2.0.26
 tavily-python==0.5.1
 gradio==6.3.0
 python-dotenv==1.1.0
+# AgentOps instrumentation SDK (local editable install — see AGENTOPS.md)
+-e ../agentops/client
