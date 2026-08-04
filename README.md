@@ -1,15 +1,3 @@
----
-title: Competitive Intelligence Agent
-emoji: 🔍
-colorFrom: blue
-colorTo: indigo
-sdk: gradio
-sdk_version: "6.3.0"
-python_version: "3.10"
-app_file: app.py
-pinned: false
----
-
 # Competitive Intelligence Agent
 
 > An agentic side project built while learning Agentic AI - an autonomous agent that researches any company using live web search and produces a structured intelligence briefing.
