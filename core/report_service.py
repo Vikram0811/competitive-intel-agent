@@ -10,6 +10,7 @@ from datetime import datetime
 from langchain_core.messages import HumanMessage
 
 from agent.graph import create_agent_graph
+from agent.report_validation import validate_report_structure
 import config
 
 
@@ -63,6 +64,22 @@ class ReportService:
 
             if not report:
                 return "Could not generate a report. Please try again."
+
+            # Structural check: does the report contain every section the
+            # prompt template requires? Cheap (no LLM call), and a
+            # different validation strategy than agentic-rag-orchestrator's
+            # exact-match judge on purpose — this repo's output is
+            # open-ended prose, not a single verifiable value, so
+            # exact-match doesn't apply. See agent/report_validation.py.
+            validation = validate_report_structure(report)
+            obs.record_eval(
+                trace_id=request_id,
+                check_name="report_structure",
+                check_type="structural",
+                passed=validation.passed,
+                score=validation.score,
+                rationale=validation.rationale,
+            )
 
             # Save report to disk
             saved_path = self._save_report(company_name, report)

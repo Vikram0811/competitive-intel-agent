@@ -126,3 +126,42 @@ def span(name: str, kind: str = "chain", input_payload=None):
         return
     with t.span(name, kind=kind, input_payload=input_payload) as s:
         yield s
+
+
+def record_eval(
+    trace_id: str,
+    check_name: str,
+    check_type: str,
+    passed: bool,
+    score: float | None = None,
+    rationale: str | None = None,
+) -> None:
+    """
+    Write a check/judge verdict to AgentOps (POST /v1/evals), tied to a
+    specific trace_id. Used for structural validation (this repo) and
+    LLM-judge verdicts (agentic-rag-orchestrator's evals/run_judge.py
+    uses the equivalent call directly).
+
+    Fails safe like everything else here: a failed write is logged and
+    swallowed, never raised — an eval-recording failure must not be able
+    to break report generation itself.
+    """
+    if not ENABLED:
+        return
+    try:
+        import httpx
+        resp = httpx.post(
+            f"{_client.base_url}/v1/evals",
+            json={
+                "trace_id": trace_id,
+                "check_name": check_name,
+                "check_type": check_type,
+                "passed": passed,
+                "score": score,
+                "rationale": rationale,
+            },
+            timeout=10.0,
+        )
+        resp.raise_for_status()
+    except Exception as e:
+        logger.warning("AgentOps: failed to record eval '%s': %s", check_name, e)
